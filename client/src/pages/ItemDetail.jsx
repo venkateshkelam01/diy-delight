@@ -16,7 +16,7 @@ export default function ItemDetail() {
     }, [id])
 
     async function onDelete() {
-        if (!confirm('Delete this item?')) return
+        if (!confirm('Delete this car?')) return
         try { await deleteItem(id); nav('/') } catch (e) { setError(e.message) }
     }
 
@@ -30,11 +30,15 @@ export default function ItemDetail() {
                 <div className="price">{centsToUSD(total)}</div>
             </div>
             <div className="card">
-                {(item.selected || []).map(s => <div key={s.feature_id} style={{ marginBottom: 6 }}>{s.icon} <b>{s.feature}</b>: {s.label}</div>)}
+                {(item.selected || []).map(s => (
+                    <div key={s.feature_id} style={{ marginBottom: 6 }}>
+                        <b>{s.display_name}</b>: {s.label} <span className="badge mono">+${(s.price_cents / 100).toFixed(0)}</span>
+                    </div>
+                ))}
             </div>
             <div style={{ display: 'flex', gap: 8 }}>
                 <Link to={`/items/${item.id}/edit`}><button>Edit</button></Link>
-                <button onClick={onDelete}>Delete</button>
+                <button className="secondary" onClick={onDelete}>Delete</button>
             </div>
         </div>
     )

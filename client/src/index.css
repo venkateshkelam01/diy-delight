@@ -1,68 +1,239 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --panel: rgba(15, 23, 42, 0.55);
+  --panel-hover: rgba(15, 23, 42, 0.68);
+  --panel-border: rgba(255, 255, 255, 0.12);
+  --tab: rgba(127, 29, 29, 0.55);
+  --tab-active: rgba(185, 28, 28, 0.70);
+  --tab-border: rgba(255, 255, 255, 0.16);
+  --accent: #b91c1c;
+  --muted: #9ca3af;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
-a:hover {
-  color: #535bf2;
+
+/* 🔥 Full-page hero background (your file in /public) */
+html,
+body {
+  height: 100%;
 }
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  color: #f1f5f9;
+  background:
+    linear-gradient(180deg, rgba(2, 6, 23, 0.65) 0%, rgba(2, 6, 23, 0.88) 60%, rgba(2, 6, 23, 1) 100%),
+    url('/race_hero.png') center center / cover no-repeat fixed;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* Root wrapper (App) spacing */
+#root>div {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 20px 48px;
 }
 
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Buttons with subtle glass look */
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+  background: var(--accent);
+  border: 1px solid var(--panel-border);
+  padding: 10px 14px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  color: #f1f5f9;
+  font-weight: 700;
+  transition: transform .08s ease, filter .2s ease;
+  backdrop-filter: saturate(120%);
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+button:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.08);
+}
+
+button.secondary {
+  background: rgba(51, 65, 85, 0.6);
+}
+
+/* Inputs with glass panel */
+input,
+select,
+textarea {
+  /* width: 100%; */
+  padding: 10px;
+  margin: 10px;
+  border-radius: 12px;
+  border: 1px solid var(--panel-border);
+  background: rgba(15, 23, 42, 0.55);
+  color: #e2e8f0;
+  backdrop-filter: blur(8px) saturate(120%);
+}
+
+/* 🧊 Glass cards */
+.card {
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 16px;
+  padding: 16px;
+  margin: 12px 0;
+  backdrop-filter: blur(10px) saturate(140%);
+  transition: background .2s ease;
+}
+
+.card:hover {
+  background: var(--panel-hover);
+}
+
+.grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+.price {
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.error {
+  color: #fca5a5;
+  font-weight: 700;
+}
+
+.mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+/* (Simple shape preview block, if still used) */
+.preview {
+  background: rgba(12, 18, 32, 0.55);
+  border: 1px dashed #374151;
+  border-radius: 16px;
+  padding: 20px;
+  margin: 10px;
+  text-align: center;
+  backdrop-filter: blur(10px) saturate(140%);
+}
+
+.preview .car {
+  width: 280px;
+  height: 160px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.preview .car .body {
+  width: 280px;
+  height: 90px;
+  border-radius: 18px;
+  position: absolute;
+  bottom: 28px;
+  left: 0;
+}
+
+.preview .car .roof {
+  width: 150px;
+  height: 44px;
+  border-radius: 14px 14px 0 0;
+  position: absolute;
+  bottom: 82px;
+  left: 40px;
+}
+
+.preview .car .wheel {
+  width: 48px;
+  height: 48px;
+  border-radius: 9999px;
+  background: #0b0b0b;
+  border: 7px solid #a3a3a3;
+  position: absolute;
+  bottom: 0;
+}
+
+.preview .car .wheel.left {
+  left: 35px;
+}
+
+.preview .car .wheel.right {
+  right: 35px;
+}
+
+/* 🗂 Tabs → glassy & transparent */
+.tabs {
+  display: flex;
+  gap: 12px;
+  margin: 8px 0 16px;
+  flex-wrap: wrap;
+}
+
+.tab {
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--tab-border);
+  background: var(--tab);
+  font-weight: 800;
+  backdrop-filter: blur(8px) saturate(140%);
+  transition: background .18s ease, transform .08s ease;
+}
+
+.tab:hover {
+  background: rgba(127, 29, 29, 0.68);
+  transform: translateY(-1px);
+}
+
+.tab.active {
+  background: var(--tab-active);
+  border-color: rgba(255, 255, 255, 0.22);
+  box-shadow: 0 0 0 2px rgba(69, 10, 10, 0.35) inset;
+}
+
+/* 🔳 Option tiles → glass */
+.option-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+}
+
+.swatch {
+  border-radius: 14px;
+  border: 1px solid var(--panel-border);
+  padding: 10px;
+  background: rgba(12, 18, 32, 0.55);
+  cursor: pointer;
+  text-align: center;
+  backdrop-filter: blur(10px) saturate(140%);
+  transition: transform .08s ease, border-color .15s ease, box-shadow .15s ease, background .2s ease;
+}
+
+.swatch:hover {
+  transform: translateY(-1px);
+  background: rgba(12, 18, 32, 0.68);
+}
+
+.swatch.selected {
+  border-color: #22d3ee;
+  box-shadow: 0 0 0 2px #22d3ee inset;
+}
+
+.swatch .chip {
+  width: 100%;
+  height: 54px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  background: #1f2937;
+}
+
+.badge {
+  background: rgba(51, 65, 85, 0.6);
+  padding: 2px 8px;
+  border-radius: 9999px;
+  font-size: 12px;
+  margin-left: 6px;
+  border: 1px solid var(--panel-border);
 }

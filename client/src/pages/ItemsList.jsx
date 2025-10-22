@@ -14,7 +14,7 @@ export default function ItemsList() {
 
     return (
         <div>
-            <h1>All Custom Items</h1>
+            <h2>Saved Cars</h2>
             {error && <div className="error">{error}</div>}
             <div className="grid">
                 {items.map(it => <ItemCard key={it.id} item={it} />)}
