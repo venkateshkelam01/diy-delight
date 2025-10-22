@@ -21,7 +21,7 @@ export async function listItems(req, res) {
 
         const withOptions = await Promise.all(items.map(async (it) => {
             const sel = (await pool.query(
-                `SELECT io.feature_id, io.option_id, f.name AS feature, o.label, o.price_cents, o.code, o.icon
+                `SELECT io.feature_id, io.option_id, f.name AS feature_key, f.display_name, o.label, o.price_cents, o.code, o.media, o.swatch
          FROM item_options io
          JOIN features f ON io.feature_id = f.id
          JOIN options o  ON io.option_id  = o.id
@@ -45,7 +45,7 @@ export async function getItem(req, res) {
         if (!item) return res.status(404).json({ error: 'Not found' })
 
         const selected = (await pool.query(
-            `SELECT io.feature_id, io.option_id, f.name AS feature, o.label, o.price_cents, o.code, o.icon
+            `SELECT io.feature_id, io.option_id, f.name AS feature_key, f.display_name, o.label, o.price_cents, o.code, o.media, o.swatch
        FROM item_options io
        JOIN features f ON io.feature_id = f.id
        JOIN options o  ON io.option_id  = o.id
@@ -102,8 +102,7 @@ export async function createItem(req, res) {
             )
         }
 
-        const full = (await pool.query('SELECT * FROM custom_items WHERE id=$1', [item.id])).rows[0]
-        res.status(201).json(full)
+        res.status(201).json(item)
     } catch (e) {
         console.error(e)
         res.status(500).json({ error: 'Failed to create item' })
